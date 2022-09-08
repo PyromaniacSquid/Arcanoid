@@ -1,0 +1,208 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.fmx"
+TForm1 *Form1;
+bool PreGame = true;
+bool OutOfZone = false;
+int Iters = 0;
+int Stage = 0;
+int Speed = 2;
+Vect Direction;
+map<int, Brick> Bricks;
+
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+	BrickRects = {Brick1, Brick2, Brick3, Brick4, Brick5,
+								Brick6, Brick7, Brick8, Brick9, Brick10,
+								Brick11, Brick12,Brick13,Brick14,Brick15,
+								Brick16,Brick17,Brick18,Brick19,Brick20};
+	Form1->Rectangle1->Position->X = 175;
+	Form1->Circle1->Position->X = 230;
+    Label5->Text = Direction.X;
+	Label6->Text = Direction.Y;
+	for (int i = 0; i < 20; i++) {
+		Bricks[i] = Brick(BrickRects[i]->Position->X,
+							BrickRects[i]->Position->X + BrickRects[i]->Width,
+							BrickRects[i]->Position->Y + BrickRects[i]->Height);
+	}
+}
+//---------------------------------------------------------------------------
+void CheckForBrick(float x, float y){
+
+	for_each(Bricks.begin(), Bricks.end(), [=](pair<int, Brick> B)
+			{if ((y == B.second.Y) && (x >= B.second.leftX) && (x <= B.second.rightX))
+				{
+				int i = B.first;
+				BrickRects[i].Enabled = false;
+				BrickRects[i].Visible = false;
+				B.second->ChangeDir();
+				Bricks.erase(B);
+				}
+			});
+
+}
+
+void __fastcall TForm1::MoveAnimProcess(TObject *Sender)
+{
+	if (!PreGame) {
+
+		float newX = ScreenToClient(Screen->MousePos()).x - 75;
+
+		Label1->Text = FloatToStr(newX);
+        Label4->Text = Rectangle1->Position->Y;
+		if ((newX > 0) && (newX <= 350)) {
+			Rectangle1->Position->X = newX;
+		}
+		else{
+			Rectangle1->Position->X = newX > 0 ? 350 : 0;
+		}
+		MoveAnim->StopValue = Rectangle1->Position->X;
+	}
+}
+//---------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+		  float X, float Y)
+{
+	CIrcleMoveX->Enabled = true;
+	CircleMoveY->Enabled = true;
+	PreGame = !PreGame;
+	MoveAnim->Enabled = !PreGame;
+
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::CIrcleMoveXProcess(TObject *Sender)
+{
+	CIrcleMoveX->StartValue = Circle1->Position->X;
+	CIrcleMoveX->StopValue += Direction.X * Speed;
+	Label2->Text = Circle1->Position->X;
+
+	if (
+		((Circle1->Position->X <= 0) && (Direction.X < 0))
+		||
+		((Circle1->Position->X >= 500) && (Direction.X > 0))
+		)
+	{
+		if (!OutOfZone) {
+			OutOfZone = true;
+			Direction.ChangeDir();
+		}
+		if (abs(Direction.X) < 2) {
+			Direction.X *= 1.125;
+		}
+		Label5->Text = Direction.X;
+		Label6->Text = Direction.Y;
+	}
+	else {
+       OutOfZone = false;
+	}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::CircleMoveYProcess(TObject *Sender)
+{
+	CircleMoveY->StartValue = Circle1->Position->Y;
+	CircleMoveY->StopValue += Direction.Y * Speed;
+	Label3->Text = Circle1->Position->Y;
+	if ((Rectangle1->Position->Y - Rectangle1->Height - Circle1->Position->Y < 10) && (Direction.Y > 0) )
+		{
+			if ((Circle1->Position->X >= Rectangle1->Position->X) &&
+				(Circle1->Position->X <= Rectangle1->Position->X + Rectangle1->Width)) {
+				float mid = Rectangle1->Position->X + (Rectangle1->Width / 2);
+				if (Direction.X > 0) {
+				   float mod = Circle1->Position->X > mid ? 1.5 : 0.5;
+				   Direction.Y *= mod;
+				}
+				else{
+					float mod = Circle1->Position->X < mid ? 1.5 : 0.5;
+					Direction.Y *= mod;
+				}
+				if (abs(Direction.Y) < 1) {
+					Direction.Y = Direction.Y > 0 ? 1 : -1;
+				}
+				if (!OutOfZone) {
+					OutOfZone = true;
+					Direction.ChangeDir();
+				}
+				Label5->Text = Direction.X;
+				Label6->Text = Direction.Y;
+			}
+			else {
+				CIrcleMoveX->Enabled = false;
+				CircleMoveY->Enabled = false;
+				PreGame = !PreGame;
+				MoveAnim->Enabled = !PreGame;
+				Form1->Rectangle1->Position->X = 175;
+				Form1->Circle1->Position->X = 230;
+            }
+	}
+	else if ((Circle1->Position->Y <= 128) && (Direction.Y < 0)) {
+			CheckForBrick(Circle1->Position->X, Circle1->Position->Y);
+		 }
+	else{
+		OutOfZone = false;
+    }
+	//
+}
+
+void __fastcall TForm1::FormGesture(TObject *Sender, const TGestureEventInfo &EventInfo,
+          bool &Handled)
+{
+	float DX, DY;
+
+	if (EventInfo.GestureID == igiPan) {
+		if (EventInfo.Flags.Contains(TInteractiveGestureFlag::gfBegin)
+		  && (Sender == ToolbarPopup || EventInfo.Location.Y > (ClientHeight - 70))) {
+			FGestureOrigin = EventInfo.Location;
+			FGestureInProgress = true;
+		}
+	}
+
+	if (FGestureInProgress && EventInfo.Flags.Contains(TInteractiveGestureFlag::gfEnd)) {
+		FGestureInProgress = false;
+		DX = EventInfo.Location.X - FGestureOrigin.X;
+		DY = EventInfo.Location.Y - FGestureOrigin.Y;
+		if (fabs(DY) > fabs(DX)) {
+			ShowToolbar(DY < 0);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void TForm1::ShowToolbar(bool AShow)
+{
+  ToolbarPopup->Width = ClientWidth;
+  ToolbarPopup->PlacementRectangle->Rect = TRect(0, ClientHeight-ToolbarPopup->Height, ClientWidth-1, ClientHeight-1);
+  ToolbarPopupAnimation->StartValue = ToolbarPopup->Height;
+  ToolbarPopupAnimation->StopValue = 0;
+
+  ToolbarPopup->IsOpen = AShow;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::FormKeyDown(TObject *Sender, WORD &Key, System::WideChar &KeyChar,
+          TShiftState Shift)
+{
+  if (Key == vkEscape) {
+	  ShowToolbar(!ToolbarPopup->IsOpen);
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ToolbarCloseButtonClick(TObject *Sender)
+{
+	Application->Terminate();
+}
+//---------------------------------------------------------------------------

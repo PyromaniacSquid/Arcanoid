@@ -1,0 +1,105 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Ani.hpp>
+#include <FMX.Gestures.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.Controls.Presentation.hpp>
+#include <FMX.Objects.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <map>
+#include <algorithm>
+#include <vector>
+using namespace std;
+class Vect {
+		public:
+		float X;
+		float Y;
+		Vect(float x = -1, float y = -1){
+			X = x;
+			Y = y;
+		}
+		void ChangeDir(){
+			if(X * Y > 0) X *= -1;
+			else Y *= -1;
+		}
+	};
+
+	class Brick{
+		public:
+		float leftX;
+		float rightX;
+		float Y;
+		Brick(float lX = 0, float rX = 0, float y = 0){
+			leftX = lX;
+			rightX = rX;
+			Y = y;
+		}
+	};
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+	TStyleBook *StyleBook1;
+	TLayout *ToolbarHolder;
+	TPopup *ToolbarPopup;
+	TFloatAnimation *ToolbarPopupAnimation;
+	TToolBar *ToolBar1;
+	TButton *ToolbarApplyButton;
+	TButton *ToolbarCloseButton;
+	TButton *ToolbarAddButton;
+	TRectangle *Brick1;
+	TRectangle *Brick10;
+	TRectangle *Brick11;
+	TRectangle *Brick12;
+	TRectangle *Brick13;
+	TRectangle *Brick14;
+	TRectangle *Brick15;
+	TRectangle *Brick16;
+	TRectangle *Brick17;
+	TRectangle *Brick18;
+	TRectangle *Brick19;
+	TRectangle *Brick2;
+	TRectangle *Brick20;
+	TRectangle *Brick3;
+	TRectangle *Brick4;
+	TRectangle *Brick5;
+	TRectangle *Brick6;
+	TRectangle *Brick7;
+	TRectangle *Brick8;
+	TRectangle *Brick9;
+	TRectangle *Rectangle1;
+	TFloatAnimation *MoveAnim;
+	TLabel *Label1;
+	TCircle *Circle1;
+	TFloatAnimation *CIrcleMoveX;
+	TFloatAnimation *CircleMoveY;
+	void __fastcall MoveAnimProcess(TObject *Sender);
+	void __fastcall FormMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+		  float X, float Y);
+	void __fastcall CIrcleMoveXProcess(TObject *Sender);
+	void __fastcall CircleMoveYProcess(TObject *Sender);
+
+	void __fastcall FormKeyDown(TObject *Sender, WORD &Key, System::WideChar &KeyChar,
+		  TShiftState Shift);
+	void __fastcall ToolbarCloseButtonClick(TObject *Sender);
+	void __fastcall FormGesture(TObject *Sender, const TGestureEventInfo &EventInfo,
+          bool &Handled);
+private:	// User declarations
+	TPointF FGestureOrigin;
+	bool FGestureInProgress;
+	void ShowToolbar(bool AShow);
+public:		// User declarations
+	__fastcall TForm1(TComponent* Owner);
+	vector<TRectangle*> BrickRects;
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif

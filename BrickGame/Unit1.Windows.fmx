@@ -1,0 +1,24 @@
+inherited Form1_Windows: TForm1_Windows
+  DesignerMasterStyle = 0
+  inherited Image1: TImage
+    Position.Y = -16.000000000000000000
+  end
+  inherited ToolbarHolder: TLayout
+    inherited ToolbarPopup: TPopup
+      inherited ToolBar1: TToolBar
+        inherited ToolbarApplyButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+        inherited ToolbarCloseButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+        inherited ToolbarAddButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+      end
+    end
+  end
+  inherited Rectangle1: TRectangle
+    Enabled = False
+  end
+end

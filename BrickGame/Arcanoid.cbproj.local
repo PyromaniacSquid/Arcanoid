@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.334,=E:\Downloads\4 Семестр\ПИ\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.315,E:\Downloads\4 Семестр\ПИ\Project1PCH1.h=E:\Downloads\4 Семестр\ПИ\BrickGame\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.365,E:\Downloads\4 Семестр\ПИ\Unit1.fmx=E:\Downloads\4 Семестр\ПИ\BrickGame\Unit1.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.565,E:\Downloads\4 Семестр\ПИ\Project1.cbproj=E:\Downloads\4 Семестр\ПИ\BrickGame\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.203,E:\Downloads\4 Семестр\ПИ\BrickGame\ArcanoidPCH1.h=E:\Downloads\4 Семестр\ПИ\BrickGame\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.053,=E:\Downloads\4 Семестр\ПИ\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.305,E:\Downloads\4 Семестр\ПИ\BrickGame\Arcanoid.cbproj=E:\Downloads\4 Семестр\ПИ\BrickGame\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.365,E:\Downloads\4 Семестр\ПИ\Unit1.h=E:\Downloads\4 Семестр\ПИ\BrickGame\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.365,E:\Downloads\4 Семестр\ПИ\Unit1.cpp=E:\Downloads\4 Семестр\ПИ\BrickGame\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.339,=E:\Downloads\4 Семестр\ПИ\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.612,=E:\Downloads\4 Семестр\ПИ\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

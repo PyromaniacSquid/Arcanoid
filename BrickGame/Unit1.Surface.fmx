@@ -1,0 +1,26 @@
+inherited Form1_Surface: TForm1_Surface
+  ClientHeight = 1920
+  ClientWidth = 1080
+  DesignerMasterStyle = 0
+  inherited Image1: TImage
+    Position.Y = -16.000000000000000000
+  end
+  inherited ToolbarHolder: TLayout
+    inherited ToolbarPopup: TPopup
+      inherited ToolBar1: TToolBar
+        inherited ToolbarApplyButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+        inherited ToolbarCloseButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+        inherited ToolbarAddButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+      end
+    end
+  end
+  inherited Rectangle1: TRectangle
+    Enabled = False
+  end
+end

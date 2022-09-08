@@ -1,0 +1,84 @@
+inherited Form1_Windows: TForm1_Windows
+  DesignerMasterStyle = 0
+  inherited StyleBook1: TStyleBook [0]
+  end
+  inherited ToolbarHolder: TLayout [1]
+    inherited ToolbarPopup: TPopup
+      inherited ToolBar1: TToolBar
+        inherited ToolbarApplyButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+        inherited ToolbarCloseButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+        inherited ToolbarAddButton: TButton
+          Size.Height = 60.000000000000000000
+        end
+      end
+    end
+  end
+  inherited Brick1: TRectangle [2]
+  end
+  inherited Brick10: TRectangle [3]
+  end
+  inherited Brick11: TRectangle [4]
+  end
+  inherited Brick12: TRectangle [5]
+  end
+  inherited Brick13: TRectangle [6]
+  end
+  inherited Brick14: TRectangle [7]
+  end
+  inherited Brick15: TRectangle [8]
+  end
+  inherited Brick16: TRectangle [9]
+  end
+  inherited Brick17: TRectangle [10]
+  end
+  inherited Brick18: TRectangle [11]
+  end
+  inherited Brick19: TRectangle [12]
+  end
+  inherited Brick2: TRectangle [13]
+  end
+  inherited Brick20: TRectangle [14]
+  end
+  inherited Brick3: TRectangle [15]
+  end
+  inherited Brick4: TRectangle [16]
+  end
+  inherited Brick5: TRectangle [17]
+  end
+  inherited Brick6: TRectangle [18]
+  end
+  inherited Brick7: TRectangle [19]
+  end
+  inherited Brick8: TRectangle [20]
+  end
+  inherited Brick9: TRectangle [21]
+  end
+  inherited Rectangle1: TRectangle [22]
+    Enabled = False
+  end
+  inherited Label1: TLabel [23]
+  end
+  inherited Circle1: TCircle [24]
+  end
+  inherited Label2: TLabel [25]
+  end
+  inherited Label3: TLabel [26]
+  end
+  inherited Label4: TLabel [27]
+  end
+  inherited Label5: TLabel [28]
+  end
+  inherited Label6: TLabel [29]
+  end
+  inherited Label7: TLabel [30]
+  end
+  inherited MediaPlayer1: TMediaPlayer [31]
+  end
+  inherited Image1: TImage [32]
+    Position.Y = -16.000000000000000000
+  end
+end
